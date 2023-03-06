@@ -17,7 +17,7 @@ public class PushController {
                          @RequestParam("nonce") String nonce,
                          @RequestParam("echostr") String echostr) {
         // 验证消息的有效性
-        if (checkSignature(signature, timestamp, nonce,"")) {
+        if (checkSignature(signature, timestamp, nonce,"juanshen")) {
             return echostr;
         } else {
             return "Invalid signature";
