@@ -3,10 +3,10 @@ package top.juanshen.wx.service;
 import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 import top.juanshen.wx.dto.SubscribeMessageDto;
 import top.juanshen.wx.dto.WechatSessionDto;
 
@@ -14,7 +14,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
-public class MessageService {
+@Slf4j
+public class WechatService {
 
     @Autowired
     private AccessTokenService accessTokenService;
@@ -78,12 +79,10 @@ public class MessageService {
 
 
     public WechatSessionDto login(String code) {
-        String url = "https://api.weixin.qq.com/sns/jscode2session?appid={appId}&secret={appSecret}&js_code={code}&grant_type=authorization_code";
-        Map<String, Object> params = new HashMap<>();
-        params.put("appId", appId);
-        params.put("appSecret", appSecret);
-        params.put("code", code);
-        String response = HttpUtil.get(url, params);
+        String url = "https://api.weixin.qq.com/sns/jscode2session?appid="+appId+"&secret="+appSecret+"&js_code="+code+"&grant_type=authorization_code";
+        log.info("login url:{}",url);
+        String response = HttpUtil.get(url);
+        log.info("login response :{}",response );
         WechatSessionDto sessionDto = JSONUtil.toBean(response, WechatSessionDto.class);
         return sessionDto;
     }

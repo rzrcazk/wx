@@ -5,20 +5,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import top.juanshen.wx.dto.SubscribeMessageDto;
 import top.juanshen.wx.dto.WechatSessionDto;
-import top.juanshen.wx.service.MessageService;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import top.juanshen.wx.service.WechatService;
 
 @RestController
 @RequestMapping("/wx")
 public class MessageController {
 
     @Autowired
-    private MessageService messageService;
+    private WechatService messageService;
 
 
     @GetMapping("/login")
